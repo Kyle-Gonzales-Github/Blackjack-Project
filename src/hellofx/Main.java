@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Deck deck = new Deck();
-    private Hand dealer,player;
+    private Hand dealer, player;
     private Text message = new Text();
 
     private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
