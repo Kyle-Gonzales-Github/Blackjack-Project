@@ -1,8 +1,7 @@
 package hellofx;
 
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -15,13 +14,6 @@ public class Card extends Parent {
 
     enum Suit {
         HEARTS, DIAMONDS, CLUBS, SPADES;
-
-        final Image image;
-
-        Suit() {
-            this.image = new Image(Card.class.getResourceAsStream("images/".concat(name().toLowerCase()).concat(".png")),
-                    32, 32, true, true);
-        }
     }
 
     enum Rank {
@@ -62,12 +54,8 @@ public class Card extends Parent {
         text2.setX(10);
         text2.setY(CARD_HEIGHT - 10);
 
-        ImageView view = new ImageView(suit.image);
-        view.setRotate(180);
-        view.setX(CARD_WIDTH - 32);
-        view.setY(CARD_HEIGHT - 32);
-
-        getChildren().addAll(bg, new ImageView(suit.image), view, text1, text2);
+        getChildren().add(new StackPane(bg, text1));
+        getChildren().add(new StackPane(bg, text2));
     }
 
     @Override

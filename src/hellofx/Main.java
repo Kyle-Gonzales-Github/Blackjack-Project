@@ -52,7 +52,6 @@ public class Main extends Application {
         rightBG.setArcHeight(50);
         rightBG.setFill(Color.ORANGE);
 
-        // LEFT
         VBox leftVBox = new VBox(50);
         leftVBox.setAlignment(Pos.TOP_CENTER);
 
@@ -142,8 +141,6 @@ public class Main extends Application {
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
         String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
-
-        // the order of checking is important
         if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue
                 || (dealerValue < 21 && dealerValue > playerValue)) {
             winner = "DEALER";
