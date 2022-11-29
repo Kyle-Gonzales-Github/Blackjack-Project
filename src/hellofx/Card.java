@@ -4,62 +4,48 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
 
 public class Card extends Parent {
 
-    private static final int CARD_WIDTH = 100;
-    private static final int CARD_HEIGHT = 140;
-
     enum Suit {
-        HEARTS, DIAMONDS, CLUBS, SPADES;
-    }
+        Hearts, Diamonds, Clubs, Spades
+    };
 
     enum Rank {
-        TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10),
-        JACK(10), QUEEN(10), KING(10), ACE(11);
+        Two(2), Three(3), Four(4), Five(5), Six(6), Seven(7), Eight(8), Nine(9), Ten(10), Jack(10), Queen(10), King(10), Ace(11);
 
         final int value;
-        Rank(int value) {
-            this.value = value;
+        private Rank(int value) {
+            this. value = value;
         }
+    };
 
-        String displayName() {
-            return ordinal() < 9 ? String.valueOf(value) : name().substring(0, 1);
-        }
-    }
-
-    public final Suit suit;
-    public final Rank rank;
-    public final int value;
+    private final Suit suit;
+    final Rank rank;
+    final int value;
 
     public Card(Suit suit, Rank rank) {
         this.suit = suit;
         this.rank = rank;
         this.value = rank.value;
 
-        Rectangle bg = new Rectangle(CARD_WIDTH, CARD_HEIGHT);
+        Rectangle bg = new Rectangle(80, 100);
         bg.setArcWidth(20);
         bg.setArcHeight(20);
-        bg.setFill(Color.WHITE);
+        bg.setFill(Color.AZURE);
 
-        Text text1 = new Text(rank.displayName());
-        text1.setFont(Font.font(18));
-        text1.setX(CARD_WIDTH - text1.getLayoutBounds().getWidth() - 10);
-        text1.setY(text1.getLayoutBounds().getHeight());
+        Text text = new Text(toString());
+        text.setWrappingWidth(70);
 
-        Text text2 = new Text(text1.getText());
-        text2.setFont(Font.font(18));
-        text2.setX(10);
-        text2.setY(CARD_HEIGHT - 10);
-
-        getChildren().add(new StackPane(bg, text1));
-        getChildren().add(new StackPane(bg, text2));
+        getChildren().add(new StackPane(bg, text));
     }
 
     @Override
     public String toString() {
         return rank.toString() + " of " + suit.toString();
     }
+    
 }
+

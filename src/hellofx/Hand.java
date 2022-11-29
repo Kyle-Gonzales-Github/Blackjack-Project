@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
+
 public class Hand {
 
     private ObservableList<Node> cards;
@@ -19,7 +20,7 @@ public class Hand {
     public void takeCard(Card card) {
         cards.add(card);
 
-        if (card.rank == Rank.ACE) {
+        if (card.rank == Rank.Ace) {
             aces++;
         }
 

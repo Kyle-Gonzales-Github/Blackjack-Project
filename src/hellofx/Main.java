@@ -1,5 +1,7 @@
 package hellofx;
 
+import java.io.FileNotFoundException;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,13 +10,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -30,7 +33,8 @@ public class Main extends Application {
     private HBox dealerCards = new HBox(20);
     private HBox playerCards = new HBox(20);
 
-    private Parent createContent() {
+    private Parent createContent() throws FileNotFoundException {
+
         dealer = new Hand(dealerCards.getChildren());
         player = new Hand(playerCards.getChildren());
 
@@ -44,13 +48,15 @@ public class Main extends Application {
         HBox rootLayout = new HBox(5);
         rootLayout.setPadding(new Insets(5, 5, 5, 5));
         Rectangle leftBG = new Rectangle(550, 560);
-        leftBG.setArcWidth(50);
-        leftBG.setArcHeight(50);
-        leftBG.setFill(Color.GREEN);
+        leftBG.setArcWidth(20);
+        leftBG.setArcHeight(20);
+        
+        
+    
         Rectangle rightBG = new Rectangle(230, 560);
-        rightBG.setArcWidth(50);
-        rightBG.setArcHeight(50);
-        rightBG.setFill(Color.ORANGE);
+        rightBG.setArcWidth(20);
+        rightBG.setArcHeight(20);
+        rightBG.setFill(Color.GREEN);
 
         VBox leftVBox = new VBox(50);
         leftVBox.setAlignment(Pos.TOP_CENTER);
@@ -58,15 +64,15 @@ public class Main extends Application {
         Text dealerScore = new Text("Dealer: ");
         Text playerScore = new Text("Player: ");
 
+        
+        Image image = new Image("O:/CSI 2300/Blackjack-Project/src/hellofx/BJ.jpg");
+        leftBG.setFill(new ImagePattern(image));
         leftVBox.getChildren().addAll(dealerScore, dealerCards, message, playerCards, playerScore);
 
         VBox rightVBox = new VBox(20);
         rightVBox.setAlignment(Pos.CENTER);
 
-        final TextField bet = new TextField("BET");
-        bet.setDisable(true);
-        bet.setMaxWidth(50);
-        Text money = new Text("MONEY");
+        
 
         Button btnPlay = new Button("PLAY");
         Button btnHit = new Button("HIT");
@@ -75,7 +81,7 @@ public class Main extends Application {
         HBox buttonsHBox = new HBox(15, btnHit, btnStand);
         buttonsHBox.setAlignment(Pos.CENTER);
 
-        rightVBox.getChildren().addAll(bet, btnPlay, money, buttonsHBox);
+        rightVBox.getChildren().addAll(btnPlay,buttonsHBox);
 
 
         rootLayout.getChildren().addAll(new StackPane(leftBG, leftVBox), new StackPane(rightBG, rightVBox));
@@ -141,20 +147,25 @@ public class Main extends Application {
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
         String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
+
         if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue
                 || (dealerValue < 21 && dealerValue > playerValue)) {
-            winner = "DEALER";
+            winner = "Dealer";
         }
         else if (playerValue == 21 || dealerValue > 21 || playerValue > dealerValue) {
-            winner = "PLAYER";
+            winner = "Player";
+        }
+        else if (playerValue == dealerValue){
+            winner = "Draw";
+
         }
 
-        message.setText(winner + " WON");
+        message.setText(winner + " WON!");
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setScene(new Scene(createContent()));
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setScene(new Scene(createContent(),600,500));
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
         primaryStage.setResizable(false);
@@ -165,4 +176,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+
 }
