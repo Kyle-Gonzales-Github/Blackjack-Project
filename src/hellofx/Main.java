@@ -153,7 +153,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createContent()));
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
